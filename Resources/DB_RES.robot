@@ -12,3 +12,13 @@ Close PetClinic Database Connection
     [Documentation]     Used as suite teardown
     Disconnect From Database
 
+Owner Row Should Exist By Telephone
+    [Documentation]     Proves the new owner row has been added in the
+    ...                 database. Retry the assertion because of the
+    ...                 commit lag after an api write.
+    [Arguments]         ${owner}
+    Check Row Count
+    ...                  SELECT id FROM owners WHERE telephone = %s
+    ...                  equal      ${1}
+    ...                  parameters=${{ ($owner.phone_number,) }}
+    ...                  retry_timeout=5 seconds        retry_pause=0.5 seconds
