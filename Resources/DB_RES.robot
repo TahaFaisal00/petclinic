@@ -16,15 +16,15 @@ Owner Row Should Exist By Telephone
     [Documentation]     Proves the new owner row has been added in the
     ...                 database. Retry the assertion because of the
     ...                 commit lag after an api write.
-    [Arguments]         ${owner}
+    [Arguments]         ${telephone}
     Check Row Count
     ...                  SELECT id FROM owners WHERE telephone = %s
     ...                  equal      ${1}
-    ...                  parameters=${{ ($owner,) }}
+    ...                  parameters=${{ ($telephone,) }}
     ...                  retry_timeout=5 seconds        retry_pause=0.5 seconds
 
 Get Owner City By Telephone
-    [Documentation]     Gets the city columns of the user with the given telephone from the database
+    [Documentation]     Gets the city column of the owner with the given telephone from the database
     ...                 Used to asserts a persisted value.
     [Arguments]     ${telephone}
     ${row}=     Query    SELECT city FROM owners WHERE telephone = %s       parameters=${{ ($telephone,) }}
