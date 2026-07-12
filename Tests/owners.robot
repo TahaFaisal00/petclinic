@@ -29,10 +29,18 @@ Update Owner Should Persist Change in Database
     Owner City In Database Should Be        ${OWNER_DETAILS.telephone}      ${UPDATED_CITY}
     [Teardown]    Run Keyword And Ignore Error          Delete Owner Via API
 
-
-
-
-
+Delete Owner Should Remove Row In Database
+    [Documentation]     Creates a new Owner via API and asserts the response and its existence in Data
+    ...                 Then Deletes this owner via API and asserts the status code and not trusting it and
+    ...                 proceeds to verify if the owner is removed from the database.
+    ${response}=     Create Owner Via API
+    Verify Response Code        ${response}     ${CREATED_CODE}
+    Verify Response Field Not Empty    ${response}    ${FIRST_NAME_FIELD_RESPONSE_MESSAGE}
+    Owner Row Should Exist By Telephone         ${OWNER_DETAILS.telephone}
+    ${response}=        Delete Owner Via API
+    Verify Response Code    ${response}    ${NO_CONTENT_CODE}
+    Owner Row Should Not Exist By Telephone    ${OWNER_DETAILS.telephone}
+    [Teardown]    Run Keyword And Ignore Error          Delete Owner Via API
 
 
 
