@@ -1,4 +1,8 @@
 *** Variables ***
+${BASE_URL}     http://localhost:9966/petclinic
+${ALIAS}        Pet
+${CREATE_OWNER_API}         /api/owners
+
 
 ${DB_MODULE}            pymysql
 ${DB_NAME}              petclinic
