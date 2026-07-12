@@ -45,3 +45,21 @@ Owner City In Database Should Be
     [Arguments]     ${telephone}        ${expected_city}
     ${persisted_city}=      Get Owner City By Telephone     ${telephone}
     Should Be Equal    ${persisted_city}    ${expected_city}
+
+Pet Row Should Exist By Pet ID And Owner ID
+    [Documentation]     Proves the new pet row has been added in the
+    ...                 database. Retry the assertion because of the
+    ...                 commit lag after an api write.
+    [Arguments]     ${pet_id}     ${owner_id}
+    Check Row Count
+    ...           SELECT id FROM pets WHERE id = %s AND owner_id = %s
+    ...           equal     ${1}
+    ...           parameters=${{ ($pet_id, $owner_id) }}
+    ...           retry_timeout=5 seconds        retry_pause=0.5 seconds
+
+
+
+
+
+
+
