@@ -3,6 +3,7 @@ Library         RequestsLibrary
 Library         FakerLibrary
 Library         String
 Library         Collections
+Library    DateTime
 Resource        ../Resources/TestData.robot
 
 *** Keywords ***
@@ -37,7 +38,8 @@ Send Create Owner request
     RETURN      ${response}
 
 Create Owner Via API
-    [Documentation]     Create a new owner by using a fresh details. can be used for test Setup
+    [Documentation]     Create a new owner by using a fresh details. can be used for test Setup.
+    ...                 Publishes $NEW_OWNER_ID to a test scope.
     ${owner}=            Create Owner Details
     VAR         &{OWNER_DETAILS}        &{owner}        scope=test
     ${body}=        Build Owner Body     ${owner}
@@ -78,9 +80,25 @@ Update Owner Via API
     ${response}=     Send Update Owner Request      ${body}
     RETURN      ${response}
 
+Build Pet Body
+    [Arguments]    ${pet_type_name}       ${pet_type_id}
+    ${fake_birth_date}=     FakerLibrary.Date Of Birth                  maximum_age=25
+    ${fake_birth_date}=     Convert Date        ${fake_birth_date}      result_format=%Y-%m-%d
+    ${fake_name}=           FakerLibrary.First Name
+    ${type}     Create Dictionary         name=${pet_type_name}        id=${pet_type_id}
+    ${body}=        Create Dictionary       name=${fake_name}       birthDate=${fake_birth_date}           type=${type}
+    RETURN      ${body}
 
+Send Add Pet Request
+    [Arguments]     ${body}
+    ${add_pet_to_owner_api_with_id}=        Format String    ${ADD_PET_TO_OWNER_API}     ${NEW_OWNER_ID}
+    ${response}=     POST On Session     ${ALIAS}         ${add_pet_to_owner_api_with_id}     json=${body}
+    RETURN      ${response}
 
-
-
-
+Add Pet To Owner Via API
+    [Documentation]     Create a new pet for the newly created owner. Publishes $PET_ID to a test scope.
+    ${body}=        Build Pet Body     ${CAT_TYPE_NAME}        ${CAT_TYPE_ID}
+    ${response}=       Send Add Pet Request        ${body}
+    VAR     ${PET_ID}       ${response.json()}[id]      scope=TEST
+    RETURN      ${response}
 

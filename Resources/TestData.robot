@@ -4,6 +4,7 @@ ${ALIAS}        Pet
 ${CREATE_OWNER_API}         /api/owners
 ${DELETE_OWNER_API}         /api/owners/{}
 ${UPDATE_OWNER_API}         /api/owners/{}
+${ADD_PET_TO_OWNER_API}     /api/owners/{}/pets
 
 ${CREATED_CODE}                             201
 ${NO_CONTENT_CODE}                          204
@@ -18,4 +19,9 @@ ${DB_HOST}              %{DB_HOST=127.0.0.1}
 ${DB_PORT}              ${3306}
 
 ${UPDATED_CITY}         Basra
+
+${CAT_TYPE_ID}          ${1}
+${CAT_TYPE_NAME}        cat
+
+
 
