@@ -102,3 +102,17 @@ Add Pet To Owner Via API
     VAR     ${PET_ID}       ${response.json()}[id]      scope=TEST
     RETURN      ${response}
 
+Send Delete Pet Request
+    ${delete_pet_api_with_pet_id}=      Format String    ${DELETE_PET_API}      ${PET_ID}
+    ${response}=    DELETE On Session       ${ALIAS}         ${delete_pet_api_with_pet_id}
+    RETURN      ${response}
+
+Delete Pet Via API
+    [Documentation]     Deletes a pet by pet ID
+    ${response}=        Send Delete Pet Request
+    RETURN      ${response}
+
+
+
+
+

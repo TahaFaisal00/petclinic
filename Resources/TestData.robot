@@ -5,7 +5,7 @@ ${CREATE_OWNER_API}         /api/owners
 ${DELETE_OWNER_API}         /api/owners/{}
 ${UPDATE_OWNER_API}         /api/owners/{}
 ${ADD_PET_TO_OWNER_API}     /api/owners/{}/pets
-
+${DELETE_PET_API}           /api/pets/{}
 ${CREATED_CODE}                             201
 ${NO_CONTENT_CODE}                          204
 
