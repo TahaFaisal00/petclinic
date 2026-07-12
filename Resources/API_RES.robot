@@ -2,6 +2,7 @@
 Library         RequestsLibrary
 Library         FakerLibrary
 Library         String
+Library         Collections
 Resource        ../Resources/TestData.robot
 
 *** Keywords ***
@@ -23,7 +24,7 @@ Create Owner Details
     ...                     city=${faker_city}       telephone=${faker_telephone}
     RETURN           &{OWNER_DETAILS}
 
-Build Create Owner Body
+Build Owner Body
     [Arguments]     ${owner}
     &{body}=    Create Dictionary    firstName=${owner.first_name}
     ...                     lastName=${owner.last_name}         address=${owner.address}
@@ -39,7 +40,7 @@ Create Owner Via API
     [Documentation]     Create a new owner by using a fresh details. can be used for test Setup
     ${owner}=            Create Owner Details
     VAR         &{OWNER_DETAILS}        &{owner}        scope=test
-    ${body}=        Build Create Owner Body     ${owner}
+    ${body}=        Build Owner Body     ${owner}
     ${response}=        Send Create Owner request       ${body}
     VAR        ${NEW_OWNER_ID}            ${response.json()}[id]       scope=TEST
     RETURN            ${response}
@@ -64,9 +65,18 @@ Verify Response Field Not Empty
     [Arguments]     ${response}         ${field}
     Should Not Be Empty    ${response.json()}[${field}]
 
+Send Update Owner Request
+    [Arguments]     ${body}
+    ${update_owner_api_with_id}=       Format String    ${UPDATE_OWNER_API}     ${NEW_OWNER_ID}
+    ${response}=     PUT On Session      ${ALIAS}       ${update_owner_api_with_id}         json=${body}
+    RETURN      ${response}
 
-
-
+Update User Via API
+    [Documentation]     Updates owner city column by ID.
+    ${body}=        Build Owner Body        ${OWNER_DETAILS}
+    Set To Dictionary       ${body}     city=${UPDATED_CITY}
+    ${response}=     Send Update Owner Request      ${body}
+    RETURN      ${response}
 
 
 

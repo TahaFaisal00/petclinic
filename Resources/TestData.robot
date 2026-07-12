@@ -3,8 +3,10 @@ ${BASE_URL}     http://localhost:9966/petclinic
 ${ALIAS}        Pet
 ${CREATE_OWNER_API}         /api/owners
 ${DELETE_OWNER_API}         /api/owners/{}
+${UPDATE_OWNER_API}         /api/owners/{}
 
 ${CREATED_CODE}                             201
+${NO_CONTENT_CODE}                          204
 
 ${FIRST_NAME_FIELD_RESPONSE_MESSAGE}         firstName
 
