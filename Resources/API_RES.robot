@@ -112,7 +112,19 @@ Delete Pet Via API
     ${response}=        Send Delete Pet Request
     RETURN      ${response}
 
+Build Create Vet Visit Body
+    ${body}=     Create Dictionary        date=${VET_VISIT_DATE}       description=${VET_VISIT_DESCRIPTION}
+    RETURN      ${body}
 
+Send Create Vet Visit Request
+    [Arguments]     ${body}
+    ${add_vet_visit_api_with_ids}=        Format String    ${ADD_VET_VISIT_API}     ${NEW_OWNER_ID}     ${PET_ID}
+    ${response}=     POST On Session     ${ALIAS}        ${add_vet_visit_api_with_ids}         json=${body}
+    RETURN      ${response}
 
-
+Create Vet Visit Via API
+    [Documentation]     Creates a vet visit for the pet of an owner.
+    ${body}=        Build Create Vet Visit Body
+    ${response}=        Send Create Vet Visit Request       ${body}
+    RETURN      ${response}
 

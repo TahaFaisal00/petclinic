@@ -6,6 +6,8 @@ ${DELETE_OWNER_API}         /api/owners/{}
 ${UPDATE_OWNER_API}         /api/owners/{}
 ${ADD_PET_TO_OWNER_API}     /api/owners/{}/pets
 ${DELETE_PET_API}           /api/pets/{}
+${ADD_VET_VISIT_API}        /api/owners/{}/pets/{}/visits
+
 ${CREATED_CODE}                             201
 ${NO_CONTENT_CODE}                          204
 
@@ -23,5 +25,7 @@ ${UPDATED_CITY}         Basra
 ${CAT_TYPE_ID}          ${1}
 ${CAT_TYPE_NAME}        cat
 
+${VET_VISIT_DESCRIPTION}       rabies shot
+${VET_VISIT_DATE}              2013-01-01
 
 
