@@ -22,3 +22,16 @@ Owner Row Should Exist By Telephone
     ...                  equal      ${1}
     ...                  parameters=${{ ($owner,) }}
     ...                  retry_timeout=5 seconds        retry_pause=0.5 seconds
+
+Get Owner City By Telephone
+    [Documentation]     Gets the city columns of the user with the given telephone from the database
+    ...                 Used to asserts a persisted value.
+    [Arguments]     ${telephone}
+    ${row}=     Query    SELECT city FROM owners WHERE telephone = %s       parameters=${{ ($telephone,) }}
+    RETURN      ${row}[0][0]
+
+Owner City In Database Should Be
+    [Documentation]     Asserts the owner city value in database by comparing it to the given city.
+    [Arguments]     ${telephone}        ${expected_city}
+    ${persisted_city}=      Get Owner City By Telephone     ${telephone}
+    Should Be Equal    ${persisted_city}    ${expected_city}
