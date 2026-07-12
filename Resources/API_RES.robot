@@ -54,7 +54,15 @@ Delete Owner Via API
     ${response}=        Send Delete Owner Request
     RETURN      ${response}
 
+Verify Response Code
+    [Documentation]     Asserts the API status code equals the given value.
+    [Arguments]         ${response_code}
+    Status Should Be    expected_status=${response_code}
 
+Verify Resposne Field Not Empty
+    [Documentation]     Asserts that the given field in response is not empty.
+    [Arguments]     ${response}         ${field}
+    Should Not Be Empty    ${response.json()}[${field}]
 
 
 
