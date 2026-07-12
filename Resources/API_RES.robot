@@ -43,3 +43,26 @@ Create Owner Via API
     ${response}=        Send Create Owner request       ${body}
     VAR        ${NEW_OWNER_ID}            ${response.json()}[id]       scope=TEST
     RETURN            ${response}
+
+Send Delete Owner Request
+    ${delete_owner_api_with_id}=        Format String    ${DELETE_OWNER_API}     ${NEW_OWNER_ID}
+    ${response}     DELETE On Session       ${ALIAS}      ${delete_owner_api_with_id}
+    RETURN      ${response}
+
+Delete Owner Via API
+    [Documentation]     Delete owner by ID. Used as Test Teardown.
+    ${response}=        Send Delete Owner Request
+    RETURN      ${response}
+
+
+
+
+
+
+
+
+
+
+
+
+
