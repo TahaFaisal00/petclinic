@@ -42,5 +42,20 @@ Delete Owner Should Remove Row In Database
     Owner Row Should Not Exist By Telephone    ${OWNER_DETAILS.telephone}
     [Teardown]    Run Keyword And Ignore Error          Delete Owner Via API
 
+Add Pet To Owner Should Persist After Creation In Database
+    [Documentation]     Creates a new Owner via API and asserts the response and its existence in Data
+    ...                 Then creates a new pet for this owner via API and asserts the status code
+    ...                 and not trusting it and proceeds to verify if the the new pet landed on the database
+    ...                 and belongs to the given owner.
+    ${response}=        Create Owner Via API
+    Verify Response Code        ${response}     ${CREATED_CODE}
+    Verify Response Field Not Empty    ${response}    ${FIRST_NAME_FIELD_RESPONSE_MESSAGE}
+    Owner Row Should Exist By Telephone         ${OWNER_DETAILS.telephone}
+    ${response}=        Add Pet To Owner Via API
+    Verify Response Code        ${response}     ${CREATED_CODE}
+    Pet Row Should Exist By Pet ID And Owner ID       ${PET_ID}       ${NEW_OWNER_ID}
+    [Teardown]    Run Keywords
+    ...           Run Keyword And Ignore Error        Delete Pet Via API    AND
+    ...           Run Keyword And Ignore Error        Delete Owner Via API
 
 
