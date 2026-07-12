@@ -12,6 +12,8 @@ ${CREATED_CODE}                             201
 ${NO_CONTENT_CODE}                          204
 
 ${FIRST_NAME_FIELD_RESPONSE_MESSAGE}         firstName
+${NAME_FIELD_RESPONSE_MESSAGE}               name
+${DESCRIPTION_FIELD_RESPONSE_MESSAGE}        description
 
 ${DB_MODULE}            pymysql
 ${DB_NAME}              petclinic
