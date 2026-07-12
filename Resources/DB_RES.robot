@@ -23,6 +23,16 @@ Owner Row Should Exist By Telephone
     ...                  parameters=${{ ($telephone,) }}
     ...                  retry_timeout=5 seconds        retry_pause=0.5 seconds
 
+Owner Row Should Not Exist By Telephone
+    [Documentation]     Proves the new owner row has been removed from the
+    ...                 database.
+    [Arguments]         ${telephone}
+    Check Row Count
+    ...                  SELECT id FROM owners WHERE telephone = %s
+    ...                  equal      ${0}
+    ...                  parameters=${{ ($telephone,) }}
+
+
 Get Owner City By Telephone
     [Documentation]     Gets the city column of the owner with the given telephone from the database
     ...                 Used to asserts a persisted value.
