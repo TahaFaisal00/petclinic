@@ -71,7 +71,7 @@ Send Update Owner Request
     ${response}=     PUT On Session      ${ALIAS}       ${update_owner_api_with_id}         json=${body}
     RETURN      ${response}
 
-Update User Via API
+Update Owner Via API
     [Documentation]     Updates owner city column by ID.
     ${body}=        Build Owner Body        ${OWNER_DETAILS}
     Set To Dictionary       ${body}     city=${UPDATED_CITY}
