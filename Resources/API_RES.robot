@@ -20,14 +20,14 @@ Create Owner Details
     ${faker_telephone}=        Remove String Using Regexp         ${raw_faker_telephone}     [^0-9]
     &{OWNER_DETAILS}        Create Dictionary       first_name=${faker_first_name}
     ...                     last_name=${faker_last_name}      address=${faker_address}
-    ...                     city=${faker_city}       phone_number=${faker_telephone}
+    ...                     city=${faker_city}       telephone=${faker_telephone}
     RETURN           &{OWNER_DETAILS}
 
 Build Create Owner Body
     [Arguments]     ${owner}
     &{body}=    Create Dictionary    firstName=${owner.first_name}
     ...                     lastName=${owner.last_name}         address=${owner.address}
-    ...                     city=${owner.city}         telephone=${owner.phone_number}
+    ...                     city=${owner.city}         telephone=${owner.telephone}
     RETURN      ${body}
 
 Send Create Owner request
@@ -56,10 +56,10 @@ Delete Owner Via API
 
 Verify Response Code
     [Documentation]     Asserts the API status code equals the given value.
-    [Arguments]         ${response_code}
-    Status Should Be    expected_status=${response_code}
+    [Arguments]         ${response}        ${response_code}
+    Status Should Be    ${response_code}        ${response}
 
-Verify Resposne Field Not Empty
+Verify Response Field Not Empty
     [Documentation]     Asserts that the given field in response is not empty.
     [Arguments]     ${response}         ${field}
     Should Not Be Empty    ${response.json()}[${field}]

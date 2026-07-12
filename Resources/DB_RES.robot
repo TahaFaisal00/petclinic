@@ -20,5 +20,5 @@ Owner Row Should Exist By Telephone
     Check Row Count
     ...                  SELECT id FROM owners WHERE telephone = %s
     ...                  equal      ${1}
-    ...                  parameters=${{ ($owner.phone_number,) }}
+    ...                  parameters=${{ ($owner,) }}
     ...                  retry_timeout=5 seconds        retry_pause=0.5 seconds
