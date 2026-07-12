@@ -21,5 +21,25 @@ Create Owner Details
     &{OWNER_DETAILS}        Create Dictionary       first_name=${faker_first_name}
     ...                     last_name=${faker_last_name}      address=${faker_address}
     ...                     city=${faker_city}       phone_number=${faker_telephone}
-    RETURN           ${OWNER_DETAILS}
+    RETURN           &{OWNER_DETAILS}
 
+Build Create Owner Body
+    [Arguments]     ${owner}
+    &{body}=    Create Dictionary    firstName=${owner.first_name}
+    ...                     lastName=${owner.last_name}         address=${owner.address}
+    ...                     city=${owner.city}         telephone=${owner.phone_number}
+    RETURN      ${body}
+
+Send Create Owner request
+    [Arguments]     ${body}
+    ${response}=        POST On Session     ${ALIAS}        ${CREATE_OWNER_API}     json=${body}
+    RETURN      ${response}
+
+Create Owner Via API
+    [Documentation]     Create a new owner by using a fresh details. can be used for test Setup
+    ${owner}=            Create Owner Details
+    VAR         &{OWNER_DETAILS}        &{owner}        scope=test
+    ${body}=        Build Create Owner Body     ${owner}
+    ${response}=        Send Create Owner request       ${body}
+    VAR        ${NEW_OWNER_ID}            ${response.json()}[id]       scope=TEST
+    RETURN            ${response}
