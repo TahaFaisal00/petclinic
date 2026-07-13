@@ -76,3 +76,16 @@ Create Owner With Invalid Field Should Not Persist In Database
     ${new_rows_count}=      Get Owner Rows Count
     Verify Rows Count Is Unchanged      ${Current_rows_count}       ${new_rows_count}
 
+Get Owners List With SQL Injection Should Not Leak Data
+    [Documentation]     Get owners list via API with an invalid params (SQL injection) treated
+    ...                 as any other normal data and return 404 - Not-Found (The value got treated
+    ...                 as a literal last name which matched no owner).
+    ...                 Instead of leaking data or returning 500 - Internal Server Error
+    ${response}=        Attempt Get Owners List With Invalid Params Via API
+    Verify Response Code    ${response}    ${NOT_FOUND_CODE}
+    Verify Response Code Does Not Equal         ${response}     ${SERVER_ERROR_CODE}
+    Verify Response Body Empty          ${response}
+
+
+
+
