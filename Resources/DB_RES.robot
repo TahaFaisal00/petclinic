@@ -87,3 +87,12 @@ Vet Visit Row Should Not Exist By Description And Pet ID
     ...           equal     ${0}
     ...           parameters=${{ ($description,$pet_id) }}
 
+Get Owner Rows Count 
+    [Documentation]     Get the owners table rows count from the database.
+    ${rows_count}=      Query    SELECT COUNT(*) FROM owners
+    RETURN          ${rows_count}[0][0]
+
+Verify Rows Count Is Unchanged
+    [Documentation]
+    [Arguments]     ${old_rows_count}       ${new_rows_count}
+    Should Be Equal As Strings    ${old_rows_count}    ${new_rows_count}
