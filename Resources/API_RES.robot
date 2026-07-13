@@ -34,17 +34,26 @@ Build Owner Body
 
 Send Create Owner request
     [Arguments]     ${body}
-    ${response}=        POST On Session     ${ALIAS}        ${CREATE_OWNER_API}     json=${body}
+    ${response}=        POST On Session     ${ALIAS}        ${CREATE_OWNER_API}     json=${body}        expected_status=anything
     RETURN      ${response}
 
 Create Owner Via API
     [Documentation]     Create a new owner by using a fresh details. can be used for test Setup.
-    ...                 Publishes $NEW_OWNER_ID to a test scope.
+    ...                 Publishes $NEW_OWNER_ID and $OWNER_DETAILS to a test scope.
     ${owner}=            Create Owner Details
     VAR         &{OWNER_DETAILS}        &{owner}        scope=test
     ${body}=        Build Owner Body     ${owner}
     ${response}=        Send Create Owner request       ${body}
     VAR        ${NEW_OWNER_ID}            ${response.json()}[id]       scope=TEST
+    RETURN            ${response}
+
+Attempt Create Owner With Missing Required Field Via API
+    [Documentation]     Create a new owner without first name field. Used For Negative tests.
+    ${owner}=            Create Owner Details
+    VAR         &{OWNER_DETAILS}        &{owner}        scope=test
+    ${body}=        Build Owner Body     ${owner}
+    Remove From Dictionary    ${body}       firstName
+    ${response}=        Send Create Owner request       ${body}
     RETURN            ${response}
 
 Send Delete Owner Request
@@ -71,6 +80,11 @@ Verify Response Field Contains
     [Documentation]     Asserts the response field contain the expected value.
     [Arguments]          ${response}      ${field}      ${message}
     Should Contain    ${response.json()}[${field}]    ${message}
+
+Verify Response Contain
+    [Documentation]     Asserts that the response contain the given value.
+    [Arguments]      ${response}           ${message}
+    Should Contain    ${response.text}    ${message}
 
 Send Update Owner Request
     [Arguments]     ${body}

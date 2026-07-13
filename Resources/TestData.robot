@@ -11,6 +11,8 @@ ${ADD_VET_VISIT_API}        /api/owners/{}/pets/{}/visits
 ${CREATED_CODE}                             201
 ${NO_CONTENT_CODE}                          204
 ${NOT_FOUND_CODE}                           404
+${BAD_REQUEST_CODE}                         400
+
 
 ${FIRST_NAME_FIELD_RESPONSE_MESSAGE}         firstName
 ${NAME_FIELD_RESPONSE_MESSAGE}               name
@@ -20,6 +22,8 @@ ${TITLE_FIELD_RESPONSE_MESSAGE}              title
 
 ${DATA_CONSTRAINT_VIOLATION_MESSAGE}         The requested resource could not be processed due to a data constraint violation
 ${DATA_INTEGRITY_VIOLATION_EXCEPTION_MESSAGE}     DataIntegrityViolationException
+${INVALID_OR_MISSING_PARAMETERS_MESSAGE}            The request contains invalid or missing parameters
+${FIELD_FIRST_NAME_MUST_NOT_BE_NULL_MESSAGE}        Field 'firstName' must not be null
 
 ${DB_MODULE}            pymysql
 ${DB_NAME}              petclinic
