@@ -86,6 +86,15 @@ Get Owners List With SQL Injection Should Not Leak Data
     Verify Response Code Does Not Equal         ${response}     ${SERVER_ERROR_CODE}
     Verify Response Body Empty          ${response}
 
-
+Create Owner With Non Latin Name Should Persist Correctly In Database
+    [Documentation]     Creates new owner via API with non latin name and asserts the response then
+    ...                 not trusting it and proceeds to verify if the new owner persisted correcly in the
+    ...                 Database (oracle) with the same name or not.
+    ${response}=        Attempt Create Owner With Non Latin Value Via API
+    Verify Response Code        ${response}     ${CREATED_CODE}
+    Verify Response Field Not Empty    ${response}    ${FIRST_NAME_FIELD_RESPONSE_MESSAGE}
+    Owner Row Should Exist By Telephone         ${OWNER_DETAILS.telephone}
+    Owner First Name In Database Should Be      ${OWNER_DETAILS.telephone}     ${ARABIC_VALUE}
+    [Teardown]    Run Keyword And Ignore Error          Delete Owner Via API
 
 
