@@ -80,6 +80,10 @@ Verify Response Code
     [Arguments]         ${response}        ${response_code}
     Status Should Be    ${response_code}        ${response}
 
+Verify Response Code Does Not Equal
+    [Documentation]     Asserts the API status code does not equals the given value.
+    [Arguments]     ${response}      ${response_code}
+    Should Not Be Equal As Integers    ${response.status_code}    ${response_code}
 
 Verify Response Field Not Empty
     [Documentation]     Asserts that the given field in response is not empty.
@@ -96,7 +100,10 @@ Verify Response Body Contains
     [Arguments]      ${response}           ${message}
     Should Contain    ${response.text}    ${message}
 
-
+Verify Response Body Empty
+    [Documentation]     Asserts that the response is empty.
+    [Arguments]      ${response}
+    Should Be Empty    ${response.text}
 
 Send Update Owner Request
     [Arguments]     ${body}
