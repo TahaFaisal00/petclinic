@@ -49,7 +49,7 @@ Create Owner Via API
 
 Send Delete Owner Request
     ${delete_owner_api_with_id}=        Format String    ${DELETE_OWNER_API}     ${NEW_OWNER_ID}
-    ${response}     DELETE On Session       ${ALIAS}      ${delete_owner_api_with_id}
+    ${response}     DELETE On Session       ${ALIAS}      ${delete_owner_api_with_id}      expected_status=anything
     RETURN      ${response}
 
 Delete Owner Via API
@@ -66,6 +66,11 @@ Verify Response Field Not Empty
     [Documentation]     Asserts that the given field in response is not empty.
     [Arguments]     ${response}         ${field}
     Should Not Be Empty    ${response.json()}[${field}]
+
+Verify Response Field Contains
+    [Documentation]     Asserts the response field contain the expected value.
+    [Arguments]          ${response}      ${field}      ${message}
+    Should Contain    ${response.json()}[${field}]    ${message}
 
 Send Update Owner Request
     [Arguments]     ${body}

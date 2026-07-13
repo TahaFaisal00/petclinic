@@ -10,10 +10,16 @@ ${ADD_VET_VISIT_API}        /api/owners/{}/pets/{}/visits
 
 ${CREATED_CODE}                             201
 ${NO_CONTENT_CODE}                          204
+${NOT_FOUND_CODE}                           404
 
 ${FIRST_NAME_FIELD_RESPONSE_MESSAGE}         firstName
 ${NAME_FIELD_RESPONSE_MESSAGE}               name
 ${DESCRIPTION_FIELD_RESPONSE_MESSAGE}        description
+${DETAIL_FIELD_RESPONSE_MESSAGE}             detail
+${TITLE_FIELD_RESPONSE_MESSAGE}              title
+
+${DATA_CONSTRAINT_VIOLATION_MESSAGE}         The requested resource could not be processed due to a data constraint violation
+${DATA_INTEGRITY_VIOLATION_EXCEPTION_MESSAGE}     DataIntegrityViolationException
 
 ${DB_MODULE}            pymysql
 ${DB_NAME}              petclinic
