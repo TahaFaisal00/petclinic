@@ -56,6 +56,15 @@ Attempt Create Owner With Missing Required Field Via API
     ${response}=        Send Create Owner request       ${body}
     RETURN            ${response}
 
+Attempt Create Owner With Invalid Field Via API
+    [Documentation]     Create a new owner with invalid telephone value. Used For Negative tests.
+    ${owner}=            Create Owner Details
+    VAR         &{OWNER_DETAILS}        &{owner}        scope=test
+    ${body}=        Build Owner Body     ${owner}
+    Set To Dictionary       ${body}         telephone=${INVALID_TELEPHONE_VALUE}
+    ${response}=        Send Create Owner request       ${body}
+    RETURN            ${response}
+
 Send Delete Owner Request
     ${delete_owner_api_with_id}=        Format String    ${DELETE_OWNER_API}     ${NEW_OWNER_ID}
     ${response}     DELETE On Session       ${ALIAS}      ${delete_owner_api_with_id}      expected_status=anything

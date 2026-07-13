@@ -24,7 +24,7 @@ ${DATA_CONSTRAINT_VIOLATION_MESSAGE}         The requested resource could not be
 ${DATA_INTEGRITY_VIOLATION_EXCEPTION_MESSAGE}     DataIntegrityViolationException
 ${INVALID_OR_MISSING_PARAMETERS_MESSAGE}            The request contains invalid or missing parameters
 ${FIELD_FIRST_NAME_MUST_NOT_BE_NULL_MESSAGE}        Field 'firstName' must not be null
-
+${FIELD_TELEPHONE_MUST_MATCH_SPECS_MESSAGE}         Field 'telephone' must match
 ${DB_MODULE}            pymysql
 ${DB_NAME}              petclinic
 ${DB_USER}              petclinic
@@ -39,5 +39,7 @@ ${CAT_TYPE_NAME}        cat
 
 ${VET_VISIT_DESCRIPTION}       rabies shot
 ${VET_VISIT_DATE}              2013-01-01
+
+${INVALID_TELEPHONE_VALUE}      xxxxxxxxxxxxxx
 
 
