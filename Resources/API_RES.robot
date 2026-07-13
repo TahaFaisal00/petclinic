@@ -80,6 +80,7 @@ Verify Response Code
     [Arguments]         ${response}        ${response_code}
     Status Should Be    ${response_code}        ${response}
 
+
 Verify Response Field Not Empty
     [Documentation]     Asserts that the given field in response is not empty.
     [Arguments]     ${response}         ${field}
@@ -94,6 +95,8 @@ Verify Response Body Contains
     [Documentation]     Asserts that the response contain the given value.
     [Arguments]      ${response}           ${message}
     Should Contain    ${response.text}    ${message}
+
+
 
 Send Update Owner Request
     [Arguments]     ${body}
@@ -155,4 +158,22 @@ Create Vet Visit Via API
     ${body}=        Build Create Vet Visit Body
     ${response}=        Send Create Vet Visit Request       ${body}
     RETURN      ${response}
+
+Build Get Owners List Params
+    [Arguments]     ${last_name}
+    ${params}=      Create Dictionary      lastName=${last_name}
+    RETURN      ${params}
+
+Send Get Owners List Request
+    [Arguments]     ${params}
+    ${response}=        GET On Session     ${ALIAS}       ${GET_OWNERS_LIST_API}      params=${params}        expected_status=anything
+    RETURN      ${response}
+
+Attempt Get Owners List With Invalid Params Via API
+    [Documentation]
+    ${params}=                Build Get Owners List Params      ${SQL_INJECTION}
+    ${response}=            Send Get Owners List Request        ${params}
+    RETURN      ${response}
+
+
 

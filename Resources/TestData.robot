@@ -7,11 +7,14 @@ ${UPDATE_OWNER_API}         /api/owners/{}
 ${ADD_PET_TO_OWNER_API}     /api/owners/{}/pets
 ${DELETE_PET_API}           /api/pets/{}
 ${ADD_VET_VISIT_API}        /api/owners/{}/pets/{}/visits
+${GET_OWNERS_LIST_API}          /api/owners
+
 
 ${CREATED_CODE}                             201
 ${NO_CONTENT_CODE}                          204
 ${NOT_FOUND_CODE}                           404
 ${BAD_REQUEST_CODE}                         400
+${SERVER_ERROR_CODE}                        500
 
 
 ${FIRST_NAME_FIELD_RESPONSE_MESSAGE}         firstName
@@ -41,5 +44,5 @@ ${VET_VISIT_DESCRIPTION}       rabies shot
 ${VET_VISIT_DATE}              2013-01-01
 
 ${INVALID_TELEPHONE_VALUE}      xxxxxxxxxxxxxx
-
+${SQL_INJECTION}                ' OR '1'='1
 
