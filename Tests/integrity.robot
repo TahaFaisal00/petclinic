@@ -54,3 +54,13 @@ Delete Owner With Pet Should Be Rejected And Not Cascade
     ...           Run Keyword And Ignore Error        Delete Pet Via API    AND
     ...           Run Keyword And Ignore Error        Delete Owner Via API
 
+Create Owner With Missing Field Should Not Persist In Database
+    [Documentation]     Creates new owner via API without providing a required field (firstName)
+    ...                 and asserts the response status code and message then not trusting it
+    ...                 and proceeds to verify if any junk row got created in the Database (oracle).
+    ${response}=        Attempt Create Owner With Missing Required Field Via API
+    Verify Response Code        ${response}     ${BAD_REQUEST_CODE}
+    Verify Response Field Contains    ${response}    ${DETAIL_FIELD_RESPONSE_MESSAGE}      ${INVALID_OR_MISSING_PARAMETERS_MESSAGE}
+    Verify Response Contain     ${response}         ${FIELD_FIRST_NAME_MUST_NOT_BE_NULL_MESSAGE}
+    Owner Row Should Not Exist By Telephone         ${OWNER_DETAILS.telephone}
+
