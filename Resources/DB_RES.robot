@@ -57,6 +57,16 @@ Pet Row Should Exist By Pet ID And Owner ID
     ...           parameters=${{ ($pet_id, $owner_id) }}
     ...           retry_timeout=5 seconds        retry_pause=0.5 seconds
 
+Pet Row Should Not Exist By Pet ID And Owner ID
+    [Documentation]     Proves the new pet row has been removed from the
+    ...                 database.
+    [Arguments]     ${pet_id}     ${owner_id}
+    Check Row Count
+    ...           SELECT id FROM pets WHERE id = %s AND owner_id = %s
+    ...           equal     ${0}
+    ...           parameters=${{ ($pet_id, $owner_id) }}
+
+
 Vet Visit Row Should Exist By Description And Pet ID
     [Documentation]     Proves the new vet visit row has been added in the
     ...                 database. Retry the assertion because of the
@@ -67,3 +77,13 @@ Vet Visit Row Should Exist By Description And Pet ID
     ...           equal     ${1}
     ...           parameters=${{ ($description,$pet_id) }}
     ...           retry_timeout=5 seconds        retry_pause=0.5 seconds
+
+Vet Visit Row Should Not Exist By Description And Pet ID
+    [Documentation]     Proves the new vet visit row has been removed from the
+    ...                 database.
+    [Arguments]         ${description}      ${pet_id}
+    Check Row Count
+    ...           SELECT id FROM visits WHERE description = %s AND pet_id = %s
+    ...           equal     ${0}
+    ...           parameters=${{ ($description,$pet_id) }}
+
