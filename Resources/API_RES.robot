@@ -90,7 +90,7 @@ Verify Response Field Contains
     [Arguments]          ${response}      ${field}      ${message}
     Should Contain    ${response.json()}[${field}]    ${message}
 
-Verify Response Body Contains
+Verify Response Contain
     [Documentation]     Asserts that the response contain the given value.
     [Arguments]      ${response}           ${message}
     Should Contain    ${response.text}    ${message}
