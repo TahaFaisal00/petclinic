@@ -46,6 +46,20 @@ Owner City In Database Should Be
     ${persisted_city}=      Get Owner City By Telephone     ${telephone}
     Should Be Equal    ${persisted_city}    ${expected_city}
 
+Get Owner First Name By Telephone
+    [Documentation]     Gets the first_name column of an owner with given telephone from the database
+    ...                 Used to asserts a persisted value.
+    [Arguments]     ${telephone}
+    ${row}=       Query    SELECT first_name FROM owners WHERE telephone = %s        parameters=${{ ($telephone,) }}
+    RETURN      ${row}[0][0]
+
+Owner First Name In Database Should Be
+    [Documentation]     Asserts the owner city value in database by comparing it to the given city.
+    [Arguments]     ${telephone}        ${expected_city}
+    ${persisted_first_name}=      Get Owner First Name By Telephone     ${telephone}
+    Should Be Equal    ${persisted_first_name}    ${expected_city}
+
+
 Pet Row Should Exist By Pet ID And Owner ID
     [Documentation]     Proves the new pet row has been added in the
     ...                 database. Retry the assertion because of the
