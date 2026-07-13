@@ -65,6 +65,17 @@ Attempt Create Owner With Invalid Field Via API
     ${response}=        Send Create Owner request       ${body}
     RETURN            ${response}
 
+Attempt Create Owner With Non Latin Value Via API
+    [Documentation]     Create a new owner with non latin first name value.
+    ...                 Publishes $NEW_OWNER_ID and $OWNER_DETAILS to a test scope.
+    ${owner}=            Create Owner Details
+    VAR         &{OWNER_DETAILS}        &{owner}        scope=test
+    ${body}=        Build Owner Body     ${owner}
+    Set To Dictionary       ${body}         firstName=${ARABIC_VALUE}
+    ${response}=        Send Create Owner request       ${body}
+    VAR        ${NEW_OWNER_ID}            ${response.json()}[id]       scope=TEST
+    RETURN            ${response}
+
 Send Delete Owner Request
     ${delete_owner_api_with_id}=        Format String    ${DELETE_OWNER_API}     ${NEW_OWNER_ID}
     ${response}     DELETE On Session       ${ALIAS}      ${delete_owner_api_with_id}      expected_status=anything
