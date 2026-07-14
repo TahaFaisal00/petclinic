@@ -161,3 +161,16 @@ Verify Vets Table Rows Count
     ...                SELECT id FROM vets
     ...                equal    ${6}
 
+Owners In Madison Count Should Be
+    [Documentation]     Asserts that the count of owners who live in madison is equal 4.
+    Check Row Count
+    ...         SELECT id FROM owners WHERE city = 'Madison'
+    ...         equal    ${4}
+
+Pets Names Lucky Count Should Be
+    [Documentation]     Asserts that the count of pets who are named Lucky is 2.
+    Check Row Count
+    ...         SELECT id FROM pets WHERE name = 'Lucky'
+    ...         equal    ${2}
+
+
