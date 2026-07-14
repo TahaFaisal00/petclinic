@@ -1,0 +1,28 @@
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: petclinic
+      MYSQL_USER: petclinic
+      MYSQL_PASSWORD: petclinic
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    image: springcommunity/spring-petclinic-rest:latest
+    environment:
+      SPRING_PROFILES_ACTIVE: mysql,spring-data-jpa
+      MYSQL_URL: jdbc:mysql://mysql:3306/petclinic
+      MYSQL_USER: petclinic
+      MYSQL_PASS: petclinic
+    ports:
+      - "9966:9966"
+    depends_on:
+      mysql:
+        condition: service_healthy
