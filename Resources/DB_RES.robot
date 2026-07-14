@@ -143,4 +143,21 @@ Vet Specialties Should Have No Orphaned Vets Or Specialties References
     ...                SELECT vs.specialty_id FROM vet_specialties vs LEFT JOIN specialties s ON vs.specialty_id = s.id WHERE s.id IS NULL
     ...                equal    ${0}
 
+Verify Owners Table Rows Count
+    [Documentation]     Asserts that the rows in the owners table equals the expected seed count 10 rows.
+    Check Row Count
+    ...                SELECT id FROM owners
+    ...                equal    ${10}
+
+Verify Pets Table Rows Count
+    [Documentation]     Asserts that the rows in the pets table equals the expected seed count 13 rows.
+    Check Row Count
+    ...                SELECT id FROM pets
+    ...                equal    ${13}
+
+Verify Vets Table Rows Count
+    [Documentation]     Asserts that the rows in the vets table equals the expected seed count 6 rows.
+    Check Row Count
+    ...                SELECT id FROM vets
+    ...                equal    ${6}
 
