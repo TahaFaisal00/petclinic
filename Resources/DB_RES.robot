@@ -173,4 +173,24 @@ Pets Names Lucky Count Should Be
     ...         SELECT id FROM pets WHERE name = 'Lucky'
     ...         equal    ${2}
 
+Owner Telephones Should Have No Duplicates
+    [Documentation]     Asserts that the telephone columns values are unique and are not duplicated across multiple
+    ...                 owners in owners table.
+    Check Row Count
+    ...             SELECT telephone FROM owners GROUP BY telephone HAVING COUNT(*) > 1
+    ...             equal    ${0}
+
+Specialty Names Should Have No Duplicates
+    [Documentation]     Asserts that the names columns values are unique and are not duplicated across multiple
+    ...                 specialties in specialties table.
+    Check Row Count
+    ...             SELECT name FROM specialties GROUP BY name HAVING COUNT(*) > 1
+    ...             equal    ${0}
+
+
+
+
+
+
+
 
