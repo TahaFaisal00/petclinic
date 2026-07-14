@@ -1,7 +1,7 @@
 *** Settings ***
 Resource            ../Resources/API_RES.robot
 Resource            ../Resources/DB_RES.robot
-Suite Setup         Run Keywords     Open Session            Open PetClinic Database Connection
+Suite Setup         Open PetClinic Database Connection
 Suite Teardown      Close PetClinic Database Connection
 
 *** Test Cases ***
@@ -22,3 +22,9 @@ Fixture Data Should Match Expected Baseline
     Verify Vets Table Rows Count
     Owners In Madison Count Should Be
     Pets Names Lucky Count Should Be
+
+Fixture Data Should Have No Duplicated Unique Fields
+    [Documentation]     Fields that should be functionally unique must have no duplicates:owner telephones
+    ...                 and specialty names.
+    Owner Telephones Should Have No Duplicates
+    Specialty Names Should Have No Duplicates
