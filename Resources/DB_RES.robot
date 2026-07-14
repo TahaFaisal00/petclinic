@@ -110,3 +110,15 @@ Verify Rows Count Is Unchanged
     [Documentation]
     [Arguments]     ${old_rows_count}       ${new_rows_count}
     Should Be Equal As Strings    ${old_rows_count}    ${new_rows_count}
+
+Pets Should Have No Orphaned Owner References
+    [Documentation]     Asserts that there are no Orphaned owner_id columns in the pets table that belongs
+    ...                 to a deleted or non-existent owner in the owners table.
+    Check Row Count
+    ...                SELECT p.id FROM pets p
+    ...                LEFT JOIN owners o ON p.owner_id = o.id
+    ...                WHERE o.id IS NULL
+    ...                equal    ${0}
+
+
+
