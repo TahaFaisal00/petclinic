@@ -1,0 +1,18 @@
+# Robot Framework output
+output.xml
+log.html
+report.html
+results/
+log/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Allure
+allure-results/
+
+# OS / IDE
+.idea/
+.DS_Store
