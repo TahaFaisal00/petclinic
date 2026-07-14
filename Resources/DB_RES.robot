@@ -115,27 +115,21 @@ Pets Should Have No Orphaned Owner References
     [Documentation]     Asserts that there are no Orphaned owner_id columns in the pets table that belongs
     ...                 to a deleted or non-existent owner in the owners table.
     Check Row Count
-    ...                SELECT p.id FROM pets p
-    ...                LEFT JOIN owners o ON p.owner_id = o.id
-    ...                WHERE o.id IS NULL
+    ...                SELECT p.id FROM pets p LEFT JOIN owners o ON p.owner_id = o.id WHERE o.id IS NULL
     ...                equal    ${0}
 
 Pets Should Have No Orphaned Types References
     [Documentation]     Asserts that there are no Orphaned type_id columns in the pets table that belongs
     ...                 to a deleted or non-existent type in the types table.
     Check Row Count
-    ...                SELECT p.id FROM pets p
-    ...                LEFT JOIN types t ON p.type_id = t.id
-    ...                WHERE t.id IS NULL
+    ...                SELECT p.id FROM pets p LEFT JOIN types t ON p.type_id = t.id WHERE t.id IS NULL
     ...                equal    ${0}
 
 Vet Visits Should Have No Orphaned Pet References
     [Documentation]     Asserts that there are no Orphaned pet_id columns in the visits table that belongs
     ...                 to a deleted or non-existent pet in the pets table.
     Check Row Count
-    ...                SELECT v.id FROM visits v
-    ...                LEFT JOIN pets p ON v.pet_id = p.id
-    ...                WHERE p.id IS NULL
+    ...                SELECT v.id FROM visits v LEFT JOIN pets p ON v.pet_id = p.id WHERE p.id IS NULL
     ...                equal    ${0}
 
 Vet Specialties Should Have No Orphaned Vets Or Specialties References
@@ -143,14 +137,10 @@ Vet Specialties Should Have No Orphaned Vets Or Specialties References
     ...                 table that belongs to a deleted or non-existent vet or speciality in the
     ...                 vets table or the specialties table.
     Check Row Count
-    ...                SELECT vs.vet_id FROM vet_specialties vs
-    ...                LEFT JOIN vets v ON vs.vet_id = v.id
-    ...                WHERE v.id IS NULL
+    ...                SELECT vs.vet_id FROM vet_specialties vs LEFT JOIN vets v ON vs.vet_id = v.id WHERE v.id IS NULL
     ...                equal    ${0}
     Check Row Count
-    ...                SELECT vs.specialty_id FROM vet_specialties
-    ...                LEFT JOIN specialties s ON vs.specialty_id = s.id
-    ...                WHERE s.id IS NULL
+    ...                SELECT vs.specialty_id FROM vet_specialties vs LEFT JOIN specialties s ON vs.specialty_id = s.id WHERE s.id IS NULL
     ...                equal    ${0}
 
 
