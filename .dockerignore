@@ -1,0 +1,12 @@
+.venv
+venv
+.git
+.idea
+results
+log
+allure-results
+__pycache__
+output.xml
+log.html
+report.html
+docs
