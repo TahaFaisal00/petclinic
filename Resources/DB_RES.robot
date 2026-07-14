@@ -120,5 +120,15 @@ Pets Should Have No Orphaned Owner References
     ...                WHERE o.id IS NULL
     ...                equal    ${0}
 
+Vet Visits Should Have No Orphaned Pet References
+    [Documentation]     Asserts that there are no Orphaned pet_id columns in the visits table that belongs
+    ...                 to a deleted or non-existent pet in the pets table.
+    Check Row Count
+    ...                SELECT v.id FROM visits v
+    ...                LEFT JOIN pets p ON v.pet_id = p.id
+    ...                WHERE v.id IS NULL
+    ...                equal    ${0}
+
+
 
 
