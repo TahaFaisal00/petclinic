@@ -8,6 +8,7 @@ Suite Teardown      Close PetClinic Database Connection
 Fixture Data Should Have Valid Referential Integrity
     [Documentation]     Verifies every foreign key in the Database tables: no orphaned pets, pet-types, visits,
     ...                 or in the junction table of vet specialties.
+    [Tags]              fixture        db       positive        referential-integrity
     Pets Should Have No Orphaned Owner References
     Pets Should Have No Orphaned Types References
     Vet Visits Should Have No Orphaned Pet References
@@ -17,6 +18,7 @@ Fixture Data Should Match Expected Baseline
     [Documentation]     Verifies the fixture data matches its known baseline both total record counts
     ...                 and specific expected content (owners per city, pets by name)
     ...                 guarding against data loss, duplication, or corruption.
+    [Tags]              fixture        db       positive        baseline
     Verify Owners Table Rows Count
     Verify Pets Table Rows Count
     Verify Vets Table Rows Count
@@ -26,5 +28,6 @@ Fixture Data Should Match Expected Baseline
 Fixture Data Should Have No Duplicated Unique Fields
     [Documentation]     Fields that should be functionally unique must have no duplicates:owner telephones
     ...                 and specialty names.
+    [Tags]              fixture        db       positive        uniqueness
     Owner Telephones Should Have No Duplicates
     Specialty Names Should Have No Duplicates

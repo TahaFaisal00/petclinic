@@ -10,6 +10,7 @@ Delete Pet With Visit Should Cascade Remove Visit In Database
     ...                 then creates a vet visit for this pet and asserts the status codes and response messages of each
     ...                 and their existence in Database. Delete the Pet (that have a visit) and asserts that
     ...                 the delete will cascade and remove the visit alongside the pet without leaving an orphan row.
+    [Tags]              functional         api       db       delete       positive      owner      cascade
     ${response}=        Create Owner Via API
     Verify Response Code        ${response}     ${CREATED_CODE}
     Verify Response Field Not Empty    ${response}    ${FIRST_NAME_FIELD_RESPONSE_MESSAGE}
@@ -36,6 +37,7 @@ Delete Owner With Pet Should Be Rejected And Not Cascade
     ...                 cascade. The two rows won't be removed from the DB.
     ...                 NOTE: This asserts current behavior. Owner+pet deletion rejection is incosistent with
     ...                 pet+visit cascade. tracked as a bug but asserted as it is to keep CI green.
+    [Tags]              functional      api       db       delete       negative      owner       cascade
     ${response}=        Create Owner Via API
     Verify Response Code        ${response}     ${CREATED_CODE}
     Verify Response Field Not Empty    ${response}    ${FIRST_NAME_FIELD_RESPONSE_MESSAGE}
@@ -58,6 +60,7 @@ Create Owner With Missing Field Should Not Persist In Database
     [Documentation]     Creates new owner via API without providing a required field (firstName)
     ...                 and asserts the response status code and message then not trusting it
     ...                 and proceeds to verify if any junk row got created in the Database (oracle).
+    [Tags]              functional      api       db       post       negative      owner
     ${response}=        Attempt Create Owner With Missing Required Field Via API
     Verify Response Code        ${response}     ${BAD_REQUEST_CODE}
     Verify Response Field Contains    ${response}    ${DETAIL_FIELD_RESPONSE_MESSAGE}      ${INVALID_OR_MISSING_PARAMETERS_MESSAGE}
@@ -68,6 +71,7 @@ Create Owner With Invalid Field Should Not Persist In Database
     [Documentation]     Creates new owner via API with an invalid required field (telephone) value
     ...                 and asserts the response status code and message then not trusting it
     ...                 and proceeds to verify if any junk row got created in the Database (oracle).
+    [Tags]              functional      api       db       post       negative      owner
     ${current_rows_count}=      Get Owner Rows Count
     ${response}=        Attempt Create Owner With Invalid Field Via API
     Verify Response Code        ${response}     ${BAD_REQUEST_CODE}
@@ -81,6 +85,7 @@ Get Owners List With SQL Injection Should Not Leak Data
     ...                 as any other normal data and return 404 - Not-Found (The value got treated
     ...                 as a literal last name which matched no owner).
     ...                 Instead of leaking data or returning 500 - Internal Server Error
+    [Tags]              functional       api       db       get       negative      owner      security
     ${response}=        Attempt Get Owners List With Invalid Params Via API
     Verify Response Code    ${response}    ${NOT_FOUND_CODE}
     Verify Response Code Does Not Equal         ${response}     ${SERVER_ERROR_CODE}
@@ -90,6 +95,7 @@ Create Owner With Non Latin Name Should Persist Correctly In Database
     [Documentation]     Creates new owner via API with non latin name and asserts the response then
     ...                 not trusting it and proceeds to verify if the new owner persisted correcly in the
     ...                 Database (oracle) with the same name or not.
+    [Tags]              functional      api       db       post       positive      owner       encoding
     ${response}=        Attempt Create Owner With Non Latin Value Via API
     Verify Response Code        ${response}     ${CREATED_CODE}
     Verify Response Field Not Empty    ${response}    ${FIRST_NAME_FIELD_RESPONSE_MESSAGE}

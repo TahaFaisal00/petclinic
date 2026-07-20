@@ -9,6 +9,7 @@ Create Owner Should Persist After Creation In Database
     [Documentation]     Creates new owner via API and asserts the response then not trusting it
     ...                 and proceeds to verify if the new owner exists in the Database (oracle) or not.
     ...                 the owner is deleted after the test.
+    [Tags]              functional      api       db       post       positive      owner
     ${response}=        Create Owner Via API
     Verify Response Code        ${response}     ${CREATED_CODE}
     Verify Response Field Not Empty    ${response}    ${FIRST_NAME_FIELD_RESPONSE_MESSAGE}
@@ -19,6 +20,7 @@ Update Owner Should Persist Change in Database
     [Documentation]     Creates a new Owner via API and asserts the response and its existence in Database
     ...                 Then Updates this Owner via API and asserts the response code and not trusting it and
     ...                 proceeds to verify if the change land on the database.
+    [Tags]              functional      api       db       put       positive      owner
     ${response}=     Create Owner Via API
     Verify Response Code        ${response}     ${CREATED_CODE}
     Verify Response Field Not Empty    ${response}    ${FIRST_NAME_FIELD_RESPONSE_MESSAGE}
@@ -33,6 +35,7 @@ Delete Owner Should Remove Row In Database
     [Documentation]     Creates a new Owner via API and asserts the response and its existence in Database
     ...                 Then Deletes this owner via API and asserts the status code and not trusting it and
     ...                 proceeds to verify if the owner is removed from the database.
+    [Tags]              functional      api       db       delete       positive      owner
     ${response}=     Create Owner Via API
     Verify Response Code        ${response}     ${CREATED_CODE}
     Verify Response Field Not Empty    ${response}    ${FIRST_NAME_FIELD_RESPONSE_MESSAGE}
@@ -47,6 +50,7 @@ Add Pet To Owner Should Persist After Creation In Database
     ...                 Then creates a new pet for this owner via API and asserts the status code and response message
     ...                 and not trusting it and proceeds to verify if the new pet landed on the database
     ...                 and belongs to the given owner.
+    [Tags]              functional      api       db       post       positive      owner
     ${response}=        Create Owner Via API
     Verify Response Code        ${response}     ${CREATED_CODE}
     Verify Response Field Not Empty    ${response}    ${FIRST_NAME_FIELD_RESPONSE_MESSAGE}
@@ -65,6 +69,7 @@ Create Owner Pet And Visit Should Persist In Database
     ...                 and its existence in Database and then creates a vet visit for this pet and asserts its
     ...                 Response message and code  and not trusting it and proceeds to verify if the
     ...                 new pet visit landed on the database and belongs to the given pet.
+    [Tags]              functional      api       db       post       positive      owner
     ${response}=        Create Owner Via API
     Verify Response Code        ${response}     ${CREATED_CODE}
     Verify Response Field Not Empty    ${response}    ${FIRST_NAME_FIELD_RESPONSE_MESSAGE}
